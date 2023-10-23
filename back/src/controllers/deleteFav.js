@@ -1,4 +1,4 @@
-const { Favorite } = require("../DB_connection");
+const { Favorite } = require("../db");
 
 const deleteFav = async (req, res) => {
   const { id } = req.params;

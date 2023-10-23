@@ -7,16 +7,14 @@ const Detail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios(`http://localhost:3001/rickandmorty/character/${id}`).then(
-      (response) => {
-        const data = response.data;
-        if (data) {
-          setCharacter(data);
-        } else {
-          window.alert("No hay personajes con ese ID");
-        }
+    axios(`/rickandmorty/character/${id}`).then((response) => {
+      const data = response.data;
+      if (data) {
+        setCharacter(data);
+      } else {
+        window.alert("No hay personajes con ese ID");
       }
-    );
+    });
     return setCharacter({});
   }, [id]);
 

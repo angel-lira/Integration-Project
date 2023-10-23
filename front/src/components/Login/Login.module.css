@@ -18,6 +18,7 @@
 
 }
 
+
 .label {
     font-size: 14px;
     font-weight: bold;
@@ -46,8 +47,15 @@
     height: 50px;
 }
 
+.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #888;
+}
+
+
 
 .errors {
     color: red;
-    font-size: 14px;
+    font-size: 12px;
 }

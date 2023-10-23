@@ -1,13 +1,14 @@
 import { useState } from "react";
 import validation from "../validation";
-import style from "./Form.module.css";
-const Form = (props) => {
+import style from "./Login.module.css";
+import { Link } from "react-router-dom";
+const Login = (props) => {
   //ESTADOS
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({ allConditions: false });
 
   //FUNCIONES
   const handleChange = (event) => {
@@ -33,11 +34,7 @@ const Form = (props) => {
           value={userData.email}
           onChange={handleChange}
         />
-        {errors.e1 ? (
-          <p className={style.errors}>{errors.e1}</p>
-        ) : (
-          <p className={style.errors}>{errors.e2}</p>
-        )}
+        <p className={style.errors}>{errors.email ? errors.email : "\u00A0"}</p>
         <label className={style.label}>Password: </label>
         <input
           className={style.input}
@@ -46,25 +43,22 @@ const Form = (props) => {
           value={userData.password}
           onChange={handleChange}
         />
-        {errors.p0 ? (
-          <p className={style.errors}>{errors.p0}</p>
-        ) : errors.p1 ? (
-          <p className={style.errors}>{errors.p1}</p>
-        ) : errors.p2 ? (
-          <p className={style.errors}>{errors.p2}</p>
-        ) : errors.p3 ? (
-          <p className={style.errors}>{errors.p3}</p>
-        ) : errors.p4 ? (
-          <p className={style.errors}>{errors.p4}</p>
-        ) : (
-          <p className={style.errors}>{errors.p5}</p>
-        )}
-        <button className={style.btn} onClick={handleSubmit}>
-          SUBMIT
+        <p className={style.errors}>
+          {errors.password ? errors.password : "\u00A0"}
+        </p>
+        <button
+          disabled={!errors.allConditions}
+          className={style.btn}
+          onClick={handleSubmit}
+        >
+          Iniciar sesión
         </button>
+        <p>
+          ¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link>
+        </p>
       </form>
     </div>
   );
 };
 
-export default Form;
+export default Login;

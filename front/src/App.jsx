@@ -9,8 +9,9 @@ import Nav from "./components/Nav/Nav";
 import About from "./components/About/About";
 import Detail from "./components/Detail/Detail";
 import Error from "./components/Error/Error";
-import Form from "./components/Form/Form";
 import Favorites from "./components/Favorites/Favorites";
+import Register from "./components/Register/Register";
+import Login from "./components/Login/Login";
 
 const App = () => {
   //ESTADOS
@@ -21,13 +22,10 @@ const App = () => {
   const navigate = useNavigate();
 
   const login = async (userData) => {
-    const { email, password } = userData;
-    const URL = "http://localhost:3001/rickandmorty/login/";
+    const URL = "/rickandmorty/login/";
 
     try {
-      const response = await axios.get(
-        URL + `?email=${email}&password=${password}`
-      );
+      const response = await axios.post(URL, userData);
       const data = response.data;
       const { access } = data;
       setAccess(access);
@@ -39,9 +37,7 @@ const App = () => {
 
   const onSearch = async (id) => {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/rickandmorty/character/${id}`
-      );
+      const response = await axios.get(`/rickandmorty/character/${id}`);
       const data = response.data;
       if (data) {
         const character = characters.some(
@@ -71,13 +67,13 @@ const App = () => {
 
   //Nota: El useEffect() no permite ver el componente Error.
 
-  // useEffect(() => {
-  //   !access && navigate("/");
-  // }, [access]);
+  useEffect(() => {
+    !access && navigate("/");
+  }, [access]);
 
   return (
     <div className="App">
-      {pathname !== "/" && (
+      {pathname !== "/" && pathname !== "/register" && (
         <Nav
           onSearch={onSearch}
           characters={characters}
@@ -85,7 +81,8 @@ const App = () => {
         />
       )}
       <Routes>
-        <Route path="/" element={<Form login={login} />}></Route>
+        <Route path="/" element={<Login login={login} />}></Route>
+        <Route path="/register" element={<Register />}></Route>
         <Route
           path="/home"
           element={<Cards characters={characters} onClose={onClose} />}

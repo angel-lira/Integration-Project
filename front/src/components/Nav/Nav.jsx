@@ -12,7 +12,7 @@ const Nav = (props) => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3001/rickandmorty/character/${randomNumber}`
+        `/rickandmorty/character/${randomNumber}`
       );
       const data = response.data;
 

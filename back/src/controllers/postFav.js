@@ -1,4 +1,4 @@
-const { Favorite } = require("../DB_connection");
+const { Favorite } = require("../db");
 
 const postFav = async (req, res) => {
   const { id, name, origin, status, image, species, gender } = req.body;

@@ -1,38 +1,38 @@
 export default (input) => {
-  const errors = {};
+  const errors = { allConditions: true };
   const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
   /// EMAIL
   if (!input.email) {
-    errors.e1 = "Debe ingresar un email.";
+    errors.email = "Debe ingresar un email.";
+    errors.allConditions = false;
   }
   if (!regexEmail.test(input.email)) {
-    errors.e2 = "Debe ingresar un email válido.";
+    errors.email = "Debe ingresar un email válido.";
+    errors.allConditions = false;
+  } else {
+    /// PASSWORD
+    if (!input.password) {
+      errors.password = "Debe ingresar una contraseña.";
+      errors.allConditions = false;
+    }
+
+    if (!/(?=.*\d)/.test(input.password)) {
+      errors.password = "La contraseña debe contener al menos un numero.";
+      errors.allConditions = false;
+    }
+
+    if (!/(?=.*[a-z])/.test(input.password)) {
+      errors.password =
+        "La contraseña debe contener al menos una letra minúscula.";
+      errors.allConditions = false;
+    }
+
+    if (!/.{8,}/.test(input.password)) {
+      errors.password = "La contraseña debe tener al menos 8 caracteres.";
+      errors.allConditions = false;
+    }
   }
 
-  /// PASSWORD
-  if (!input.password) {
-    errors.p0 = "Debe ingresar una contraseña.";
-  }
-
-  if (!/(?=.*\d)/.test(input.password)) {
-    errors.p1 = "La contraseña debe contener al menos un numero.";
-  }
-
-  if (!/(?=.*[a-z])/.test(input.password)) {
-    errors.p2 = "La contraseña debe contener al menos una letra minúscula.";
-  }
-
-  if (!/(?=.*[A-Z])/.test(input.password)) {
-    errors.p3 = "La contraseña debe contener al menos una letra mayúscula.";
-  }
-
-  if (!/(?=.*[a-zA-Z])/.test(input.password)) {
-    errors.p4 = "La contraseña debe contener al menos una letra.";
-  }
-
-  if (!/.{8,}/.test(input.password)) {
-    errors.p5 = "La contraseña debe tener al menos 8 caracteres.";
-  }
   return errors;
 };
